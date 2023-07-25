@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+</head>
+
+<body>
+    <%- include('comm/hedar'); %>
+    <h1>Welcome <%=user.name %>
+    </h1>
+    <h3>Welcome <%=user.gmail %>
+    </h3>
+    <h4>Welcome <%=user.city %>
+    </h4>
+    <p>Programig Lag</p>
+    <ul>
+        <% user["progam lag"].forEach((item)=>{ %>
+            <li>
+                <%=item %>
+            </li>
+            <%}) %>
+    </ul>
+<a href="/">Home</a>
+</body>
+
+
+</html>
