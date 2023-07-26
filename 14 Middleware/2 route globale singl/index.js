@@ -15,4 +15,4 @@ app.get('/user', (rep, resq) => {
 route.get('/admins', (rep, resq) => {
     resq.send("<h1>wellcome to admin page </h1>") //erro
 })
-app.listen(5000)
+app.listen(5000);
