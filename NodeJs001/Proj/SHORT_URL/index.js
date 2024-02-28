@@ -7,9 +7,7 @@ const app = express()
 connectToMongoDB("mongodb://127.0.0.1:27017/short-url");
 
 app.use(express.json())
-app.use('/url', urlRoute)
-app.get('/:shortId',)
-
+app.use('/', urlRoute)
 
 
 app.listen(PORT, () => console.log(`Server Started At Port is ${PORT}`))

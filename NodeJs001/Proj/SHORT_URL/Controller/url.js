@@ -1,4 +1,4 @@
-const shortid  = require("shortid")
+const shortid = require("shortid")
 
 const URL = require("../models/url")
 async function hedalgeneretNewShortURL(req, res) {
@@ -13,16 +13,28 @@ async function hedalgeneretNewShortURL(req, res) {
     return res.json({ id: ShortID })
 }
 async function hedalredirectUrl(req, res) {
-    const ShortID = shortid()
-    const body = req.body;
-    if (!body.url) return res.status(400).json({ erro: "url is required" })
-    await URL.create({
-        shortId: ShortID,
-        redirectUrl: body.url,
-        visitHistry: []
+    const shortId = req.params.shortId;
+    const entry = await URL.findOneAndUpdate({
+        shortId
+    }, {
+        $push: {
+            visitHistry: {
+                timestamp: Date.now(),
+            }
+        }
     })
-    return res.json({ id: ShortID })
+    res.redirect(entry.redirectUrl)
+}
+async function hedalanalyticsUrl(req, res) {
+    const shortId = req.params.shortId;
+    const result = await URL.findOne({ shortId })
+    return res.json({
+        TotaleClicl: result.visitHistry.length,
+        analytics: result.visitHistry
+    })
 }
 module.exports = {
-    hedalgeneretNewShortURL,hedalredirectUrl
+    hedalgeneretNewShortURL,
+    hedalanalyticsUrl,
+    hedalredirectUrl
 }
